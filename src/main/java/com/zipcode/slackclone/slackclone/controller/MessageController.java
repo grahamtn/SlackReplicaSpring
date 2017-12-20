@@ -28,22 +28,16 @@ public class MessageController {
     @GetMapping("/messages")
     public ResponseEntity<List<Message>> getAllMessages(){
         List<Message> allMessages = messageService.getAllMessages();
-<<<<<<< HEAD
-        logger.info(allMessages.toString());
-=======
+
         logger.info("Getting all messages: {}", allMessages);
->>>>>>> 8a85ec721c7064d1dbd773e980a60a57b1e7a9b5
         return new ResponseEntity<>(allMessages, HttpStatus.OK);
     }
 
     @GetMapping("/messages/{messageId}")
     public ResponseEntity<?> getMessageById(@PathVariable Long messageId){
         Message messageById =  messageService.getMessageById(messageId);
-<<<<<<< HEAD
-        logger.info(messageById.getMessageContent());
-=======
+
         logger.info("Getting message by Id: {}", messageById);
->>>>>>> 8a85ec721c7064d1dbd773e980a60a57b1e7a9b5
         if (messageById == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
