@@ -2,6 +2,8 @@ package com.zipcode.slackclone.slackclone.controller;
 
 import com.zipcode.slackclone.slackclone.model.Message;
 import com.zipcode.slackclone.slackclone.services.MessageService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,18 +19,22 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 public class MessageController {
 
+    Logger logger = LoggerFactory.getLogger(MessageController.class);
+
     @Autowired
     private MessageService messageService;
 
     @GetMapping("/messages")
     public ResponseEntity<List<Message>> getAllMessages(){
         List<Message> allMessages = messageService.getAllMessages();
+        logger.info(allMessages.toString());
         return new ResponseEntity<>(allMessages, HttpStatus.OK);
     }
 
     @GetMapping("/messages/{messageId}")
     public ResponseEntity<?> getMessageById(@PathVariable Long messageId){
         Message messageById =  messageService.getMessageById(messageId);
+        logger.info(messageById.getMessageContent());
         if (messageById == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -52,6 +58,7 @@ public class MessageController {
 
     @DeleteMapping("/messages/{messageId}")
     public ResponseEntity<Void> deletingMessage(@PathVariable Long messageId){
+        logger.info("Deleting message with id: {}",messageId);
         messageService.deleteMessage(messageId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
