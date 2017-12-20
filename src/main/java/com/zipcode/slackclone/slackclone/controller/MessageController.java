@@ -36,7 +36,6 @@ public class MessageController {
     @GetMapping("/messages/{messageId}")
     public ResponseEntity<?> getMessageById(@PathVariable Long messageId){
         Message messageById =  messageService.getMessageById(messageId);
-
         logger.info("Getting message by Id: {}", messageById);
         if (messageById == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

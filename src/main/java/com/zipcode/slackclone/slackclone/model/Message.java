@@ -9,7 +9,7 @@ import java.util.Date;
 @Entity
 public class Message {
     @Id
-    @GeneratedValue
+//    @GeneratedValue
     @Column(name = "MESSAGE_ID")
     private Long messageId;
 
