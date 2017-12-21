@@ -45,7 +45,9 @@ public class MessageController {
 
     @PostMapping("/messages")
     public ResponseEntity<Void> addingMessage(@RequestBody Message newMessage){
+
         Message message = messageService.addMessage(newMessage);
+
         logger.info("Adding message: {}", message);
 
         HttpHeaders responseHeaders = new HttpHeaders();

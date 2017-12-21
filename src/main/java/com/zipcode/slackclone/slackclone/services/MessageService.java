@@ -31,7 +31,7 @@ public class MessageService {
     }
 
     public Message addMessage(Message message){
-       return messageRepository.save(message);
+       return messageRepository.saveAndFlush(message);
     }
 
     public void updateMessage(Message updatedMessage){
