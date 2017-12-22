@@ -49,16 +49,17 @@ public class MessageController {
         Message message = messageService.addMessage(newMessage);
 
         logger.info("Adding message: {}", message);
-
-        HttpHeaders responseHeaders = new HttpHeaders();
-        URI newMessageUri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(message.getMessageId())
-                .toUri();
-        responseHeaders.setLocation(newMessageUri);
-
-        return new ResponseEntity<>(responseHeaders, HttpStatus.CREATED);
-
+        if(message.getMessageId().equals(newMessage.getMessageId())) {
+            HttpHeaders responseHeaders = new HttpHeaders();
+            URI newMessageUri = ServletUriComponentsBuilder
+                    .fromCurrentRequest()
+                    .path("/{id}")
+                    .buildAndExpand(message.getMessageId())
+                    .toUri();
+            responseHeaders.setLocation(newMessageUri);
+            return new ResponseEntity<>(responseHeaders, HttpStatus.CREATED);
+        }
+        else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @DeleteMapping("/messages/{messageId}")
